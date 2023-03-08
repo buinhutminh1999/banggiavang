@@ -47,10 +47,10 @@ export default function HomeComponent() {
     // console.log('editmode', editMode)
     // console.log('data', data)
     return (
-        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #ff4b1f 0%, #1fddff 51%, #ff4b1f 100%)' }} >
+        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%' }} >
             <div className=' text-danger'>
                 <div className='d-flex'>
-                    <h1 style={{ color: '#005C97' }}>DNTN</h1>
+                    <h1 style={{ color: '#00d2ff' }}>DNTN</h1>
                     <h1 style={{ color: '#F09819' }} className='text-center w-100'>TIỆM VÀNG
                         <br />
                         <span style={{ fontSize: '65px' }} className='text-center text-danger'>PHƯƠNG THẢO</span>
@@ -59,7 +59,7 @@ export default function HomeComponent() {
                 </div>
                 <br />
 
-                <p className='m-0' style={{ fontSize: '30px', color:'#1e3c72' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()}</p>
+                <p className='m-0' style={{ fontSize: '30px', color:'white' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()}</p>
             </div>
             <table className="table table-dark table-hover table-bordered mb-0" >
                 <thead>
