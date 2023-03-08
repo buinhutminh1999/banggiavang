@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // khi click vào th render input có 2 giá trị
+import { Button, Space  } from 'antd';
 
 let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
 let arrNull = [
@@ -8,17 +9,18 @@ let arrNull = [
     { id: 2, status: false, namePlacehoder: 'Gía mua 610', type: 'input', name: 'giaMua610' },
     { id: 3, status: false, namePlacehoder: 'Gía bán 610', type: 'input', name: 'giaBan610' },
 ]
+
 export default function HomeComponent() {
     const [data, setData] = useState()
-    const [arrList, setArrList] = useState(null)
     const [editMode, setEditmode] = useState(false)
-
     const [value, setValue] = useState({
         giaMua9999: '',
         giaBan9999: '',
         giaMua610: '',
         giaBan610: ''
     })
+    const [date, setDate] = useState(new Date());
+
     const getCurrenDate = () => {
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -39,29 +41,39 @@ export default function HomeComponent() {
             setData(
                 listData
             )
+            setValue(listData)
         } else {
             setData(null)
         }
 
     }, [])
-    // console.log('editmode', editMode)
-    // console.log('data', data)
+
+    useEffect(() => {
+        let timer = setInterval(() => setDate(new Date()), 1000);
+        return function cleanup() {
+            clearInterval(timer);
+        };
+    }, [date]);
+    useEffect(() => {
+        let a = setInterval(() => setData(JSON.parse(localStorage.getItem('BangGiaVang'))), 1000);
+        return function cleanup() {
+            clearInterval(a);
+        };
+    }, [data])
     return (
-        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%' }} >
+        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} >
             <div className=' text-danger'>
-                <div className='d-flex'>
+                <div className='d-flex' style={{ position: 'relative' }}>
                     <h1 style={{ color: '#00d2ff' }}>DNTN</h1>
-                    <h1 style={{ color: '#F09819' }} className='text-center w-100'>TIỆM VÀNG
+                    <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>TIỆM VÀNG
                         <br />
                         <span style={{ fontSize: '65px' }} className='text-center text-danger'>PHƯƠNG THẢO</span>
                     </h1>
-
                 </div>
-                <br />
 
-                <p className='m-0' style={{ fontSize: '30px', color:'white' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()}</p>
+                <p style={{ fontSize: '30px', color: 'white', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()} - {date.toLocaleTimeString()}</p>
             </div>
-            <table className="table table-dark table-hover table-bordered mb-0" >
+            <table className="table align-middle table-dark table-hover table-bordered mb-0 mt-3" >
                 <thead>
                     <tr className='text-center'>
                         <th></th>
@@ -95,14 +107,25 @@ export default function HomeComponent() {
                         </td>
                     </tr>
                 </tbody>
-                {data == null || editMode ? <button className='btn btn-success' onClick={() => {
-                    setData(value)
-                    setEditmode(false)
-                    localStorage.setItem('BangGiaVang', JSON.stringify(value))
-                }}>Thêm dữ liệu</button> : null}
+
             </table>
 
-
+            {data == null || editMode
+                ? <Space wrap className='mt-3'>
+                    <Button type="primary" onClick={() => {
+                        setData(value)
+                        setEditmode(false)
+                        localStorage.setItem('BangGiaVang', JSON.stringify(value))
+                    }}>Thêm dữ liệu</Button>
+                    <Button type="primary" onClick={() => {
+                        setEditmode(false)
+                    }}>Hủy bỏ</Button>
+                    
+                </Space>
+                : null}
+            <div>
+              
+            </div>
         </div>
 
 
