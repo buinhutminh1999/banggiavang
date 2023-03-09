@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // khi click vào th render input có 2 giá trị
-import { Button, Space  } from 'antd';
+import { Button, Space } from 'antd';
 
 let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
 let arrNull = [
@@ -65,40 +65,44 @@ export default function HomeComponent() {
             <div className=' text-danger'>
                 <div className='d-flex' style={{ position: 'relative' }}>
                     <h1 style={{ color: '#00d2ff' }}>DNTN</h1>
-                    <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>TIỆM VÀNG
+                    <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>
+                        <span style={{ fontSize: '50px' }}>TIỆM VÀNG</span>
                         <br />
-                        <span style={{ fontSize: '65px' }} className='text-center text-danger'>PHƯƠNG THẢO</span>
+                        <span style={{ fontSize: '70px' }} className='text-center text-danger'>PHƯƠNG THẢO</span>
                     </h1>
                 </div>
 
-                <p style={{ fontSize: '30px', color: 'white', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()} - {date.toLocaleTimeString()}</p>
+                <p style={{ fontSize: '30px', color: '#1677ff', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()} - {date.toLocaleTimeString()}</p>
             </div>
-            <table className="table align-middle table-dark table-hover table-bordered mb-0 mt-3" >
+            <table className="table align-middle table-light table-hover table-bordered mb-0 mt-3" >
                 <thead>
                     <tr className='text-center'>
                         <th></th>
-                        <th style={{ fontSize: '30px' }}>MUA VÀO</th>
-                        <th style={{ fontSize: '30px' }}>BÁN RA</th>
+                        <th style={{ fontSize: '30px',color: '#1677ff' }}>BÁN RA</th>
+                        <th style={{ fontSize: '30px',color: '#1677ff' }}>MUA VÀO</th>
+
                     </tr>
                 </thead>
                 <tbody className='text-center'>
                     <tr>
-                        <td style={{ fontSize: '30px' }}>NT 9999</td>
-                        <td>{data == null || editMode
-                            ? <input type={'text'} className="form-control" defaultValue={data?.giaMua9999} name={arrNull[0].name} placeholder={arrNull[0].namePlacehoder} onChange={handleChange} />
-                            : <button style={{ backgroundImage: 'linear-gradient(to right, #fe8c00 0%, #f83600 51%, #fe8c00 100%)', fontSize: '65px' }} className='btn btn-danger' onClick={() => { setEditmode(true) }}>{data.giaMua9999}</button>}</td>
+                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT 9999</td>
                         <td>{data == null || editMode
                             ? <input type={'text'} className="form-control" defaultValue={data?.giaBan9999} name={arrNull[1].name} placeholder={arrNull[1].namePlacehoder} onChange={handleChange} />
-                            : <button style={{ backgroundImage: 'linear-gradient(to right, #fe8c00 0%, #f83600 51%, #fe8c00 100%)', fontSize: '65px' }} className='btn btn-danger' onClick={() => { setEditmode(true) }}>{data.giaBan9999}</button>}</td>
+                            : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaBan9999}</button>}</td>
+                        <td>{data == null || editMode
+                            ? <input type={'text'} className="form-control" defaultValue={data?.giaMua9999} name={arrNull[0].name} placeholder={arrNull[0].namePlacehoder} onChange={handleChange} />
+                            : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaMua9999}</button>}</td>
+
                     </tr>
                     <tr>
-                        <td style={{ fontSize: '30px' }}>NT 610</td>
-                        <td>{data == null || editMode
-                            ? <input type={'text'} className="form-control" defaultValue={data?.giaMua610} name={arrNull[2].name} placeholder={arrNull[2].namePlacehoder} onChange={handleChange} />
-                            : <button style={{ backgroundImage: 'linear-gradient(to right, #fe8c00 0%, #f83600 51%, #fe8c00 100%)', fontSize: '65px' }} className='btn btn-danger' onClick={() => { setEditmode(true) }}>{data.giaMua610}</button>}</td>
+                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT 610</td>
                         <td>{data == null || editMode
                             ? <input type={'text'} className="form-control" defaultValue={data?.giaBan610} name={arrNull[3].name} placeholder={arrNull[3].namePlacehoder} onChange={handleChange} />
-                            : <button style={{ backgroundImage: 'linear-gradient(to right, #fe8c00 0%, #f83600 51%, #fe8c00 100%)', fontSize: '65px' }} className='btn btn-danger' onClick={() => { setEditmode(true) }}>{data.giaBan610}</button>}</td>
+                            : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaBan610}</button>}</td>
+                        <td>{data == null || editMode
+                            ? <input type={'text'} className="form-control" defaultValue={data?.giaMua610} name={arrNull[2].name} placeholder={arrNull[2].namePlacehoder} onChange={handleChange} />
+                            : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaMua610}</button>}</td>
+
                     </tr>
                     <tr className='text-center'>
                         <td colSpan={3}>
@@ -120,11 +124,11 @@ export default function HomeComponent() {
                     <Button type="primary" onClick={() => {
                         setEditmode(false)
                     }}>Hủy bỏ</Button>
-                    
+
                 </Space>
                 : null}
             <div>
-              
+
             </div>
         </div>
 
