@@ -62,13 +62,13 @@ export default function HomeComponent() {
     }, [data])
     return (
         <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} >
-            <div className=' text-danger'>
+            <div className=' text-danger' style={{background:'#F7C04A'}}>
                 <div className='d-flex' style={{ position: 'relative' }}>
                     <h1 style={{ color: '#00d2ff' }}>DNTN</h1>
                     <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>
-                        <span style={{ fontSize: '50px' }}>TIỆM VÀNG</span>
+                        <span style={{ fontSize: '50px', color:'#16FF00' }}>TIỆM VÀNG</span>
                         <br />
-                        <span style={{ fontSize: '70px' }} className='text-center text-danger'>PHƯƠNG THẢO</span>
+                        <span style={{ fontSize: '70px', color:'#FF0032' }} className='text-center'>PHƯƠNG THẢO</span>
                     </h1>
                 </div>
 
