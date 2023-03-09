@@ -61,20 +61,19 @@ export default function HomeComponent() {
         };
     }, [data])
     return (
-        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column' }} >
+        <div className='container-fluid ' style={{ minHeight: '100vh', cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column',fontWeight:'800' }} >
             <div className=' text-danger' style={{background:'#F7C04A'}}>
                 <div className='d-flex' style={{ position: 'relative' }}>
                     <h1 style={{ color: '#00d2ff' }}>DNTN</h1>
                     <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>
-                        <span style={{ fontSize: '50px', color:'#16FF00' }}>TIỆM VÀNG</span>
-                        <br />
-                        <span style={{ fontSize: '70px', color:'#FF0032' }} className='text-center'>PHƯƠNG THẢO</span>
+                        <p className='m-0' style={{ fontSize: '50px', color:'#16FF00' }}>TIỆM VÀNG</p>
+                        <p style={{ fontSize: '70px', color:'#FF0032' }} className='text-center m-0'>PHƯƠNG THẢO</p>
                     </h1>
                 </div>
 
                 <p style={{ fontSize: '30px', color: '#1677ff', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {getCurrenDate()} - {date.toLocaleTimeString()}</p>
             </div>
-            <table className="table align-middle table-light table-hover table-bordered mb-0 mt-3" >
+            <table className="table align-middle  table-hover table-bordered mb-0 mt-3" style={{background:'#FBFFB1'}}>
                 <thead>
                     <tr className='text-center'>
                         <th></th>
@@ -85,7 +84,7 @@ export default function HomeComponent() {
                 </thead>
                 <tbody className='text-center'>
                     <tr>
-                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT 9999</td>
+                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT. 9999</td>
                         <td>{data == null || editMode
                             ? <input type={'text'} className="form-control" defaultValue={data?.giaBan9999} name={arrNull[1].name} placeholder={arrNull[1].namePlacehoder} onChange={handleChange} />
                             : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaBan9999}</button>}</td>
@@ -95,7 +94,7 @@ export default function HomeComponent() {
 
                     </tr>
                     <tr>
-                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT 610</td>
+                        <td style={{ fontSize: '30px', color: '#1677ff' }}>NT. 610</td>
                         <td>{data == null || editMode
                             ? <input type={'text'} className="form-control" defaultValue={data?.giaBan610} name={arrNull[3].name} placeholder={arrNull[3].namePlacehoder} onChange={handleChange} />
                             : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaBan610}</button>}</td>
@@ -104,7 +103,7 @@ export default function HomeComponent() {
                             : <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => { setEditmode(true) }}>{data.giaMua610}</button>}</td>
 
                     </tr>
-                    <tr className='text-center'>
+                    <tr className='text-center' style={{fontWeight: '800'}}>
                         <td colSpan={3}>
                             <h1 style={{ color: '#00c6ff' }}>CẦM ĐỒ</h1>
                             <h1 style={{ color: '#f46b45' }}>LÃI SUẤT 3% THÁNG</h1>
