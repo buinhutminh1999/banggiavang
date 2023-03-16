@@ -36,7 +36,6 @@ function TableShowData() {
         setEditmode(false)
         localStorage.setItem('BangGiaVang', JSON.stringify(value))
     }
-    console.log('value', value)
     return (
         <>
             {/* style={{ background: '#FBFFB1' }} */}
@@ -54,7 +53,7 @@ function TableShowData() {
                             <td>{item.nameFirstTD}</td>
                             {item.listContent.map((item2, index) => {
                                 return <td key={index}>
-                                    {!editMode ? <button style={{ color: 'rgb(254, 140, 0)', fontSize: '70px' }} className='btn btn' onClick={() => {
+                                    {!editMode ? <button className='btn btn boujee-text' onClick={() => {
                                         setEditmode(true)
                                     }}>{value[item2.nameInput]}</button> : <input className="form-control" defaultValue={value[item2.nameInput]} name={item2.nameInput} onChange={handleChange} />}
                                 </td>
