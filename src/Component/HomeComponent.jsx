@@ -13,7 +13,7 @@ export default function HomeComponent() {
                         <h1 className='dntn'>DNTN</h1>
                     </div>
                     <h1 style={{ color: '#F09819', position: 'absolute' }} className='text-center w-100'>
-                        <p style={{ fontSize: '50px' }} class="animate-charcter">TIỆM VÀNG</p>
+                        <p style={{ fontSize: '60px' }} class="animate-charcter">TIỆM VÀNG</p>
                         <br />
                         <p style={{ fontSize: '70px' }} class="animate-charcter">PHƯƠNG THẢO</p>
                     </h1>
