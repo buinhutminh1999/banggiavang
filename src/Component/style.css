@@ -102,31 +102,32 @@ table{
 } */
 
 .dntn {
-  color: #95CD41;
+  color: #00235B;
   /* font-weight: 300; */
   /* animation: lights 5s 750ms linear infinite; */
 }
 
 /* button animation */
 .boujee-text {
-  /* color: rgb(254, 140, 0); */
+  color: #B20600;
   font-size: 70px;
-  --bg-size: 400%;
-  --color-one: #B20600;
-  --color-two: hsl(40 95% 55%);
-  /* font-size: clamp(3rem, 25vmin, 8rem); */
-  background: linear-gradient(
-                90deg,
-                var(--color-one),
-                var(--color-two),
-                var(--color-one)
-              ) 0 0 / var(--bg-size) 100%;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: move-bg 8s infinite linear;
-
 }
+ /* color: rgb(254, 140, 0); */
+
+ /* --bg-size: 400%;
+ --color-one: #B20600;
+ --color-two: hsl(40 95% 55%); */
+ /* font-size: clamp(3rem, 25vmin, 8rem); */
+ /* background: linear-gradient(
+               90deg,
+               var(--color-one),
+               var(--color-two),
+               var(--color-one)
+             ) 0 0 / var(--bg-size) 100%;
+ color: transparent;
+ -webkit-background-clip: text;
+ background-clip: text;
+ animation: move-bg 8s infinite linear;
 @media (prefers-reduced-motion: no-preference) {
   .boujee-text {
     animation: move-bg 8s linear infinite;
@@ -136,4 +137,4 @@ table{
       background-position: var(--bg-size) 0;
     }
   }
-}
+} */
