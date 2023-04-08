@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import ButtonEdit from './ButtonEdit';
 import TableFoot from './TableFoot';
 import TableThead from './TableThead';
+import { Space, Button } from 'antd'
 
 export default function TableShowData() {
     const [editMode, setEditmode] = useState(false)
@@ -11,7 +11,7 @@ export default function TableShowData() {
         giaBan610: '.000.000',
         giaMua610: '.000.000',
     })
-    const [backupVal, setBackupVal] = useState({  })
+    const [backupVal, setBackupVal] = useState({})
     const listArr = useMemo(() => {
         return [
             { id: 0, nameFirstTD: 'NT. 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
@@ -26,7 +26,7 @@ export default function TableShowData() {
     useEffect(() => {
         let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
         if (localStorage.getItem('BangGiaVang')) {
-            setEditmode(false)
+            setEditmode(false)// có dữ liệu
             setValue(listData)//lưu lại value khi bấm sửa
             setBackupVal(listData)// ban đầu khi load lên lưu dữ liệu lại
         } else {
@@ -38,20 +38,16 @@ export default function TableShowData() {
         localStorage.setItem('BangGiaVang', JSON.stringify(value))
         setEditmode(false)// đóng hiện giá 
         setBackupVal(value)// khi thêm dữ liệu thì backup dữ liệu
-    }, [value])
-
+    }, [value]) //theo dõi value để khi setState thì backupVal nhận được dữ liệu
     const cheDoEdit = useCallback((e) => {
         setEditmode(e)
     }, [])
 
-    const huyBo = useCallback(() => {// khi ko điền dependencies sẽ lưu giá trị ban đầu (init) của biến backupVal = {}
+    const huyBo = useCallback(() => {// khi ko điền dependencies sẽ lưu giá trị ban đầu (init) của biến backupVal = {}, vì ko theo dõi được dependencies truyền vào 
         cheDoEdit(false)
         setValue(backupVal) //đến khi hủy bỏ thì lấy lại dữ liệu cũ
-    }, [editMode])
+    }, [backupVal])// theo dõi backupVal để khi setState thì value nhận được dữ liệu
 
-
-    console.log('backupVal', backupVal)
-    console.log('value', value)
     return (
         <section className='container-fluid'>
             <table className="table align-middle table-hover table-bordered mb-0 mt-3" >
@@ -65,7 +61,7 @@ export default function TableShowData() {
                             {item.listContent.map((item2, index) => {
                                 return <td key={index}>
                                     {!editMode ? <button className='btn btn boujee-text' onClick={() => {
-                                        setEditmode(true)
+                                        cheDoEdit(true)
                                     }}>{value[item2.nameInput]}</button> : <input className="form-control" value={value[item2.nameInput]} name={item2.nameInput} onChange={handleChange} />}
                                 </td>
                             })}
@@ -76,7 +72,13 @@ export default function TableShowData() {
                     <TableFoot />
                 </tfoot>
             </table>
-            <ButtonEdit editMode={editMode} cheDoEdit={cheDoEdit} themDuLieu={themDuLieu} huyBo={huyBo} />
+            {editMode
+                ? <Space wrap className='mt-3'>
+                    < Button type="primary" onClick={themDuLieu} >Thêm dữ liệu</Button >
+                    <Button type="primary" onClick={huyBo}>Hủy bỏ</Button>
+                </Space >
+                : null
+            }
         </section>
     )
 }
