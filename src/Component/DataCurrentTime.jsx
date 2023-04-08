@@ -4,15 +4,11 @@ function DataCurrentTime() {
     const [date, setDate] = useState(new Date());
     useEffect(() => {
         let timer = setInterval(() => setDate(new Date()), 1000);
-        return function cleanup() {
-            clearInterval(timer);
-        };
-    }, [date]);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
-        <>
-            <p style={{ fontSize: '30px', color: '#1677ff', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {date.toLocaleDateString('vi-VN')} - {date.toLocaleTimeString('vi-VN')}</p>
-        </>
+        <p style={{ fontSize: '30px', color: '#1677ff', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {date.toLocaleDateString('vi-VN')} - {date.toLocaleTimeString('vi-VN')}</p>
     )
 }
 

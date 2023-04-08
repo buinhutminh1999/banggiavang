@@ -1,12 +1,10 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Space } from 'antd';
-let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
+import ButtonEdit from './ButtonEdit';
+import TableFoot from './TableFoot';
+import TableThead from './TableThead';
 
-let listArr = [
-    { id: 0, nameFirstTD: 'NT. 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
-    { id: 1, nameFirstTD: 'NT. 610', listContent: [{ nameInput: 'giaBan610' }, { nameInput: 'giaMua610' }] },
-]
-function TableShowData() {
+export default function TableShowData() {
     const [editMode, setEditmode] = useState(false)
     const [value, setValue] = useState({
         giaBan9999: '.000.000',
@@ -14,15 +12,24 @@ function TableShowData() {
         giaBan610: '.000.000',
         giaMua610: '.000.000',
     })
+    const listArr = useMemo(() => {
+        return [
+            { id: 0, nameFirstTD: 'NT. 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
+            { id: 1, nameFirstTD: 'NT. 610', listContent: [{ nameInput: 'giaBan610' }, { nameInput: 'giaMua610' }] },
+        ]
+    }, [])
 
-    const handleChange = (e) => {
+    const handleChange = useCallback((e) => {
+        // let formatter = new Intl.NumberFormat("vn-vi");
+        // formatter.format(e.target.value.replace(/,/g, ""))
+        localStorage.setItem('BangGiaVang', JSON.stringify({
+            ...value, [e.target.name]: e.target.value
+        }))
         setValue({ ...value, [e.target.name]: e.target.value })
-    }
+    }, [value])
 
-    const cheDoEdit = (e) => {
-        setEditmode(e)
-    }
     useEffect(() => {
+        let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
         if (localStorage.getItem('BangGiaVang')) {
             setEditmode(false)
             setValue(listData)//lưu lại value khi bấm sửa
@@ -31,21 +38,19 @@ function TableShowData() {
         }
     }, [])
 
-    const themDuLieu = () => {
-        setValue(value)
-        setEditmode(false)
-        localStorage.setItem('BangGiaVang', JSON.stringify(value))
-    }
+    const themDuLieu = useCallback(() => {
+        setEditmode(false)// đóng hiện giá 
+    }, [])
+
+    const cheDoEdit = useCallback((e) => {
+        setEditmode(e)
+    }, [])
+
     return (
-        <>
-            {/* style={{ background: '#FBFFB1' }} */}
-            <table className="table align-middle  table-hover table-bordered mb-0 mt-3" >
+        <section className='container-fluid'>
+            <table className="table align-middle table-hover table-bordered mb-0 mt-3" >
                 <thead>
-                    <tr className='text-center'>
-                        <th></th>
-                        <th style={{ fontSize: '30px', color: '#1677ff' }}>BÁN RA</th>
-                        <th style={{ fontSize: '30px', color: '#1677ff' }}>MUA VÀO</th>
-                    </tr>
+                    <TableThead />
                 </thead>
                 <tbody className='text-center'>
                     {listArr.map((item) => {
@@ -55,31 +60,18 @@ function TableShowData() {
                                 return <td key={index}>
                                     {!editMode ? <button className='btn btn boujee-text' onClick={() => {
                                         setEditmode(true)
-                                    }}>{value[item2.nameInput]}</button> : <input className="form-control" defaultValue={value[item2.nameInput]} name={item2.nameInput} onChange={handleChange} />}
+                                    }}>{value[item2.nameInput]}</button> : <input className="form-control" value={value[item2.nameInput]} name={item2.nameInput} onChange={handleChange} />}
                                 </td>
                             })}
                         </tr>
                     })}
-
                 </tbody>
-                <tr className='text-center'>
-                    <td colSpan={3} style={{color:'#1677ff'}}>
-                        <h1 >CẦM ĐỒ</h1>
-                        <h1>LÃI SUẤT 3% THÁNG</h1>
-                    </td>
-                </tr>
+                <tfoot>
+                    <TableFoot />
+                </tfoot>
             </table>
-            {editMode
-                ? <Space wrap className='mt-3'>
-                    <Button type="primary" onClick={themDuLieu}>Thêm dữ liệu</Button>
-                    <Button type="primary" onClick={() => {
-                        cheDoEdit(false)
-                    }}>Hủy bỏ</Button>
-
-                </Space>
-                : null}
-        </>
+            <ButtonEdit editMode={editMode} cheDoEdit={cheDoEdit} themDuLieu={themDuLieu} />
+        </section>
     )
 }
 
-export default memo(TableShowData)
