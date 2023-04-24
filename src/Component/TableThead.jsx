@@ -4,8 +4,8 @@ function TableThead() {
     return (
         <tr className='text-center'>
             <th></th>
-            <th style={{ fontSize: '30px', color: '#1677ff' }}>BÁN RA</th>
-            <th style={{ fontSize: '30px', color: '#1677ff' }}>MUA VÀO</th>
+            <th style={{ fontSize: '30px' }}>BÁN RA</th>
+            <th style={{ fontSize: '30px' }}>MUA VÀO</th>
         </tr>
     )
 }

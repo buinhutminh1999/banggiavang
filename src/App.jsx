@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import HomeComponent from './Component/HomeComponent';
 function App() {
   return (

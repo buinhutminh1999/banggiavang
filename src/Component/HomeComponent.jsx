@@ -8,7 +8,7 @@ export default function HomeComponent() {
     return (
         <>
             <header className='container-fluid' style={{ cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', fontWeight: '800' }} >
-                <div className='text-danger header' >
+                <div className='text-danger header' style={{ background: '#ED2B2A' }}>
                     <div className='d-flex' style={{ position: 'relative' }}>
                         <div className="content">
                             <h1 className='dntn'>DNTN</h1>
