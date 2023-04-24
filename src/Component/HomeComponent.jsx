@@ -8,8 +8,7 @@ import MyContextMenu from './MyContextMenu/MyContextMenu';
 export default function HomeComponent() {
 
     return (
-
-        <div className='d-flex flex-column justify-content-center' style={{ height: '100vh' }}>
+        <div className='d-flex flex-column justify-content-center' style={{height: '100vh'}}>
             <header className='container-fluid' style={{ cursor: 'pointer', backgroundImage: 'linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', fontWeight: '800' }} >
                 <div className='text-danger header' style={{ background: '#ED2B2A' }}>
                     <div className='d-flex' style={{ position: 'relative' }}>
@@ -30,6 +29,7 @@ export default function HomeComponent() {
             </header>
 
             <TableShowData />
+
         </div>
 
     )
