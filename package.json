@@ -2,6 +2,9 @@
   "name": "banggiavang",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "firebase": "^12.7.0",
     "framer-motion": "^12.23.26",
