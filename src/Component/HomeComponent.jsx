@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 import DataCurrentTime from './DataCurrentTime';
 import TableShowData from './TableShowData';
@@ -6,6 +7,16 @@ import GoldParticles from './GoldParticles';
 import WeatherWidget from './WeatherWidget';
 
 function HomeComponent() {
+    const navigate = useNavigate();
+
+    // Redirect mobile users to Admin page
+    useEffect(() => {
+        const isMobile = window.innerWidth < 1024;
+        if (isMobile) {
+            navigate('/admin', { replace: true });
+        }
+    }, [navigate]);
+
     return (
         <div className='d-flex flex-column position-relative' style={{ height: '100vh', padding: '1vh 2vw', overflow: 'hidden' }}>
             <GoldParticles />
