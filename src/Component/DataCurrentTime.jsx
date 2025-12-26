@@ -1,14 +1,46 @@
 import React, { memo, useEffect, useState } from 'react'
+import lunisolar from 'lunisolar'
 
 function DataCurrentTime() {
     const [date, setDate] = useState(new Date());
+    const [lunarDate, setLunarDate] = useState('');
+
     useEffect(() => {
-        let timer = setInterval(() => setDate(new Date()), 1000);
+        const updateTime = () => {
+            const now = new Date();
+            setDate(now);
+            try {
+                const lunar = lunisolar(now);
+                // lunisolar uses .lunar.day and .lunar.month
+                const day = lunar.lunar.day;
+                const month = lunar.lunar.month;
+                setLunarDate(`Ngày ${day} Tháng ${month} Âm Lịch`);
+            } catch (error) {
+                console.error('Lunar date error:', error);
+                setLunarDate('');
+            }
+        }
+
+        updateTime();
+        let timer = setInterval(updateTime, 1000);
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <p style={{ fontSize: '30px', color:'#FFD93D', marginTop: '70px' }}>Tỷ giá vàng trong 24H NGÀY {date.toLocaleDateString('vi-VN')} - {date.toLocaleTimeString('vi-VN')}</p>
+        <div className='glass-pill text-end text-white'>
+            <div style={{ fontSize: '1.5rem', fontWeight: '500', letterSpacing: '1px' }}>
+                <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>HÔM NAY: </span>
+                {date.toLocaleDateString('vi-VN')}
+            </div>
+            {lunarDate && (
+                <div style={{ fontSize: '1.2rem', color: '#ccc', fontStyle: 'italic' }}>
+                    {lunarDate}
+                </div>
+            )}
+            <div style={{ fontSize: '1.5rem', fontWeight: 'bold', marginTop: '5px' }}>
+                {date.toLocaleTimeString('vi-VN')}
+            </div>
+        </div>
     )
 }
 

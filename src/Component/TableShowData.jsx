@@ -1,81 +1,109 @@
-import React, { useCallback, useMemo, useState } from 'react'
+// TableShowData: Displays real-time prices with glassmorphism UI
+import React, { useMemo, useState, useEffect } from 'react'
 import TableFoot from './TableFoot';
 import TableThead from './TableThead';
-import ButtonEdit from './ButtonEdit';
-import { style } from './style.css'
-let listData = JSON.parse(localStorage.getItem('BangGiaVang'))
+import { AnimatePresence } from 'framer-motion';
+import PriceRow from './PriceRow';
+import { db } from '../firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
+
 const listNull = {
-    giaBan9999: '.000.000',
-    giaMua9999: '.000.000',
-    giaBan610: '.000.000',
-    giaMua610: '.000.000',
+    giaBan9999: '0',
+    giaMua9999: '0',
+    giaBan610: '0',
+    giaMua610: '0',
 }
+
 export default function TableShowData() {
-    const [editMode, setEditmode] = useState(false)
-    const [value, setValue] = useState(listData ? listData : listNull)
+    const [value, setValue] = useState(() => {
+        // Try to load from localStorage first
+        const cached = localStorage.getItem('gold_prices');
+        return cached ? JSON.parse(cached) : null;
+    });
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+    // Monitor Online Status
+    useEffect(() => {
+        const handleStatusChange = () => setIsOnline(navigator.onLine);
+        window.addEventListener('online', handleStatusChange);
+        window.addEventListener('offline', handleStatusChange);
+        return () => {
+            window.removeEventListener('online', handleStatusChange);
+            window.removeEventListener('offline', handleStatusChange);
+        };
+    }, []);
+
+    // Listen to Firestore for real-time updates
+    useEffect(() => {
+        const pricesDoc = doc(db, 'settings', 'prices');
+        const unsubscribe = onSnapshot(pricesDoc,
+            (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    setValue(data);
+                    // Cache to localStorage for offline use
+                    localStorage.setItem('gold_prices', JSON.stringify(data));
+                } else {
+                    setValue(listNull);
+                }
+            },
+            (error) => {
+                // Silent error handling
+            }
+        );
+        return () => unsubscribe();
+    }, []);
 
     const listArr = useMemo(() => {
         return [
-            { id: 0, nameFirstTD: 'NT. 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
-            { id: 1, nameFirstTD: 'NT. 610', listContent: [{ nameInput: 'giaBan610' }, { nameInput: 'giaMua610' }] },
+            { id: 0, nameFirstTD: 'VÀNG 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
+            { id: 1, nameFirstTD: 'VÀNG 610', listContent: [{ nameInput: 'giaBan610' }, { nameInput: 'giaMua610' }] },
         ]
     }, [])
 
-
-    const handleChange = useCallback((e) => {
-        setValue({ ...value, [e.target.name]: e.target.value })
-    }, [value])
-
-    const themDuLieu = useCallback(() => {
-        localStorage.setItem('BangGiaVang', JSON.stringify(value))
-        setEditmode(false)// đóng hiện giá 
-    }, [value]) // theo dõi biến value để lưu dữ liệu
-
-    // const themDuLieu = useCallback(() => {
-    // localStorage.setItem('BangGiaVang', JSON.stringify(value))
-    //     setEditmode(false)// đóng hiện giá 
-    // setBackupVal(value)
-    // }, [value]) //theo dõi value để khi setState thì backupVal nhận được dữ liệu,
-    //khi ko điền dependencies sẽ lưu giá trị ban đầu (init) của biến được khởi tạo, vì ko theo dõi được dependencies truyền vào 
-
-    const cheDoEdit = useCallback((e) => {
-        setEditmode(e)
-    }, [])
-
-    const huyBo = useCallback(() => {
-        cheDoEdit(false)
-        setValue(JSON.parse(localStorage.getItem('BangGiaVang')) ?? listNull) //đến khi hủy bỏ thì lấy lại dữ liệu cũ, dữ liệu cũ lấy từ localstorega hạn chế theo dõi dependencies
-    }, [])
+    if (!value) {
+        return (
+            <div className="d-flex justify-content-center align-items-center h-100 flex-column">
+                <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}></div>
+                <h3 className="mt-3 text-white animate-charcter">⏳ Đang cập nhật dữ liệu...</h3>
+            </div>
+        );
+    }
 
     return (
-        <section className='container-fluid' >
-            <table className="table align-middle table-hover table-bordered mb-0 mt-3" style={{background:'#D21312'}}>
-                <thead>
-                    <TableThead />
-                </thead>
-                <tbody className='text-center'>
-                    {listArr.map((item) => {
-                        return <tr style={{ fontSize: '30px' }} key={item.id}>
-                            <td>{item.nameFirstTD}</td>
-                            {item.listContent.map((item2, index) => {
-                                return <td key={index}>
-                                    {!editMode ? <button className='btn btn boujee-text' onClick={() => {
-                                        cheDoEdit(true)
-                                    }}>{value[item2.nameInput]}</button> : <input className="form-control" value={value[item2.nameInput]} name={item2.nameInput} onChange={handleChange} />}
-                                </td>
-                            })}
-                        </tr>
-                    })}
-                </tbody>
-                <tfoot>
-                    <TableFoot />
-                </tfoot>
-            </table>
-            <ButtonEdit
-                huyBo={huyBo}
-                themDuLieu={themDuLieu}
-                editMode={editMode} />
+        <section className='container-fluid h-100 p-0 position-relative'>
+            {/* Offline Indicator */}
+            {!isOnline && (
+                <div className="offline-badge">
+                    📡 Mất kết nối internet
+                </div>
+            )}
+
+            <div className='glass-panel p-3 d-flex flex-column h-100'>
+                <table className="table align-middle table-bordered mb-0 custom-table h-100">
+                    <thead>
+                        <TableThead />
+                    </thead>
+                    <tbody className='text-center'>
+                        <AnimatePresence>
+                            {listArr.map((item, index) => (
+                                <PriceRow
+                                    key={item.id}
+                                    item={item}
+                                    value={value}
+                                    editMode={false}
+                                    cheDoEdit={() => { }}
+                                    handleValueChange={() => { }}
+                                    index={index}
+                                />
+                            ))}
+                        </AnimatePresence>
+                    </tbody>
+                    <tfoot>
+                        <TableFoot slogan={value?.slogan} />
+                    </tfoot>
+                </table>
+            </div>
         </section>
     )
 }
-
