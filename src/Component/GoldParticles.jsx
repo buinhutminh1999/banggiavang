@@ -56,7 +56,7 @@ const GoldParticles = () => {
                             enable: true,
                             area: 800,
                         },
-                        value: 50,
+                        value: 15,
                     },
                     opacity: {
                         value: { min: 0.1, max: 0.5 },

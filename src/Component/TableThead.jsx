@@ -4,8 +4,8 @@ function TableThead() {
     return (
         <tr className='text-center'>
             <th style={{ width: '30%' }}>💎 LOẠI VÀNG</th>
-            <th>📤 BÁN RA</th>
-            <th>📥 MUA VÀO</th>
+            <th className='th-sell'>📤 BÁN RA</th>
+            <th className='th-buy'>📥 MUA VÀO</th>
         </tr>
     )
 }

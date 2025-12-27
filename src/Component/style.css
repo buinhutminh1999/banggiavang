@@ -50,11 +50,11 @@
 }
 
 .weather-icon {
-  font-size: 3.5vh;
+  font-size: 5vh;
 }
 
 .weather-temp {
-  font-size: 3vh;
+  font-size: 4vh;
   font-weight: 700;
   color: var(--accent-color);
 }
@@ -133,6 +133,23 @@
   }
 }
 
+@keyframes pulse-live {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 body,
 html {
   font-family: var(--font-main);
@@ -174,7 +191,7 @@ html {
   --bs-table-bg: transparent;
   --bs-table-color: var(--accent-color);
   --bs-table-border-color: rgba(255, 255, 255, 0.1);
-  font-size: 3.5vh;
+  font-size: 5vh;
   /* Responsive font size */
   width: 100%;
   height: 100%;
@@ -183,18 +200,32 @@ html {
 }
 
 .custom-table thead th {
-  background-color: rgba(210, 19, 18, 0.95) !important;
   color: white;
   border-bottom: 4px solid var(--accent-color);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding: 1.5vh 1vw;
-  font-size: 3vh;
+  font-size: 4vh;
   position: sticky;
   top: 0;
   z-index: 10;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-table thead th:first-child {
+  background-color: rgba(20, 30, 48, 0.95);
+  /* Dark background for 'Type' */
+}
+
+.th-sell {
+  background-color: rgba(210, 19, 18, 0.95);
+  /* Red for Sell */
+}
+
+.th-buy {
+  background-color: rgba(13, 71, 161, 0.95);
+  /* Blue for Buy */
 }
 
 .custom-table tbody tr {
@@ -233,6 +264,7 @@ html {
   -webkit-text-fill-color: transparent;
   animation: textclip 3s linear infinite;
   display: inline-block;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 61, 0.3));
 }
 
 @keyframes textclip {
@@ -242,22 +274,25 @@ html {
 }
 
 .dntn {
-  color: var(--accent-color);
+  background: linear-gradient(to bottom, #FFD93D 0%, #FFF8DC 50%, #FFD93D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 800;
   letter-spacing: 3px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .boujee-text {
   color: var(--accent-color);
-  font-size: 5vh;
+  font-size: 8vh;
   /* Massive text for price */
   font-weight: 800;
   background: none;
   border: none;
   padding: 0;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  letter-spacing: 2px;
+  letter-spacing: 5px;
+  /* Extremely wide spacing for clarity */
 }
 
 .market-input {

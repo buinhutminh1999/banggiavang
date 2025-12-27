@@ -1,6 +1,6 @@
 // Service Worker - Auto Reload on Update
 // Change this version number when deploying new code
-const VERSION = 'v1766743003904';
+const VERSION = 'v1766743536650';
 
 self.addEventListener('install', event => {
     console.log(`[SW] Installing version ${VERSION}`);

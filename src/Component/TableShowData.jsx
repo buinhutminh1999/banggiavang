@@ -72,12 +72,34 @@ export default function TableShowData() {
 
     return (
         <section className='container-fluid h-100 p-0 position-relative'>
-            {/* Offline Indicator */}
-            {!isOnline && (
-                <div className="offline-badge">
-                    📡 Mất kết nối internet
-                </div>
-            )}
+            {/* Live Status Indicator */}
+            <div className="live-indicator" style={{
+                position: 'absolute',
+                top: '15px',
+                left: '20px',
+                zIndex: 100,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+            }}>
+                <span style={{
+                    width: '12px',
+                    height: '12px',
+                    borderRadius: '50%',
+                    backgroundColor: isOnline ? '#4CAF50' : '#f44336',
+                    boxShadow: isOnline ? '0 0 10px #4CAF50' : '0 0 10px #f44336',
+                    animation: 'pulse-live 2s infinite'
+                }}></span>
+                <span style={{
+                    fontSize: '1.5vh',
+                    color: isOnline ? '#4CAF50' : '#f44336',
+                    fontWeight: 'bold',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                }}>
+                    {isOnline ? 'LIVE' : 'OFFLINE'}
+                </span>
+            </div>
 
             <div className='glass-panel p-3 d-flex flex-column h-100'>
                 <table className="table align-middle table-bordered mb-0 custom-table h-100">
