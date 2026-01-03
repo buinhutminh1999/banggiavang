@@ -33,7 +33,7 @@ function DataCurrentTime() {
                 {date.toLocaleDateString('vi-VN')}
             </div>
             {lunarDate && (
-                <div style={{ fontSize: '2.5vh', color: '#69f0ae', fontStyle: 'italic', fontWeight: 'bold' }}> {/* Lighter Green for subtext */}
+                <div style={{ fontSize: '2.5vh', color: '#69f0ae', fontStyle: 'italic', fontWeight: 'bold', whiteSpace: 'nowrap' }}> {/* Lighter Green for subtext */}
                     {lunarDate}
                 </div>
             )}
