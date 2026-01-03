@@ -16,7 +16,7 @@ function TableFoot({ slogan }) {
                     borderBottomRightRadius: '16px',
                     boxShadow: '0 -4px 10px rgba(0,0,0,0.2)'
                 }}>
-                    <Marquee speed={80} gradient={false} className='text-white fw-bold' style={{ fontSize: '4.5vh', letterSpacing: '2px' }}>
+                    <Marquee speed={80} gradient={false} className='text-white fw-bold' style={{ fontSize: '4.5vh', letterSpacing: '2px', textShadow: '2px 2px 0 #000' }}>
                         {textToDisplay}
                     </Marquee>
                 </div>

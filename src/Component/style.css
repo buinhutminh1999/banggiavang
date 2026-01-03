@@ -1,16 +1,56 @@
 :root {
+  /* --- DEFAULT MODE (PREMIUM GLASS) --- */
+  /* Good for Evening / Cloudy / Indoor soft light */
+
   --primary-color: #D21312;
-  /* Premium Red */
   --secondary-color: #141E30;
-  /* Dark Blue */
+  /* Original Dark Blue */
   --accent-color: #FFD93D;
-  /* Gold */
+  /* Original Gold */
   --text-light: #F8F9FA;
+
   --glass-bg: rgba(20, 30, 48, 0.85);
-  /* Darker for better contrast on TV */
+  /* Transparent Glass */
   --glass-border: rgba(255, 255, 255, 0.15);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  --strong-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  /* Soft Shadow */
   --font-main: 'Montserrat', sans-serif;
+
+  /* Text Colors defaults */
+  --text-secondary: #ccc;
+  --text-header-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  --qr-bg: rgba(255, 255, 255, 0.9);
+  --qr-border: 2px dashed var(--accent-color);
+  --qr-padding: 15px;
+  --qr-filter: none;
+}
+
+/* --- SUNLIGHT MODE (HIGH CONTRAST) --- */
+/* Activated when sunny & daytime */
+body.sunlight-mode {
+  --secondary-color: #050a10;
+  /* Blacker */
+  --accent-color: #FFEA00;
+  /* Neon Gold */
+  --text-light: #FFFFFF;
+
+  --glass-bg: rgba(5, 10, 16, 0.98);
+  /* Opaque */
+  --glass-border: rgba(255, 234, 0, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
+
+  --strong-shadow: 3px 3px 0px #000000;
+  /* Hard Outline */
+  --text-secondary: #FFFFFF;
+  --text-header-shadow: 4px 4px 0px #000;
+
+  --qr-bg: #ffffff;
+  --qr-border: 4px solid var(--accent-color);
+  --qr-padding: 20px;
+  --qr-filter: contrast(120%);
 }
 
 /* Custom Scrollbar for Webkit */
@@ -153,7 +193,7 @@
 body,
 html {
   font-family: var(--font-main);
-  background-image: linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%);
+  background-image: linear-gradient(to right, #000000 0%, #0a0a0a 51%, #000000 100%);
   cursor: none;
   /* Hide cursor for TV */
   margin: 0;
@@ -168,13 +208,14 @@ html {
 }
 
 /* Glassmorphism Utility */
+/* Glassmorphism Utility - High Contrast Mode */
 .glass-panel {
-  background: rgba(20, 30, 48, 0.6);
+  background: var(--glass-bg);
   border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 234, 0, 0.15);
   height: 100%;
 }
 
@@ -245,54 +286,40 @@ html {
 
 .custom-table td {
   vertical-align: middle;
-  font-weight: 700;
+  font-weight: 800;
   border-color: rgba(255, 255, 255, 0.1);
   padding: 1.5vh 1vw;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: var(--strong-shadow);
 }
 
 /* Animation */
 .animate-charcter {
   text-transform: uppercase;
-  background-image: linear-gradient(-225deg,
-      #FFD93D 0%,
-      #FFFFFF 50%,
-      #FFD93D 100%);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: textclip 3s linear infinite;
+  color: var(--accent-color);
+  text-shadow: var(--text-header-shadow);
   display: inline-block;
-  filter: drop-shadow(0 0 10px rgba(255, 217, 61, 0.3));
-}
-
-@keyframes textclip {
-  to {
-    background-position: 200% center;
-  }
+  font-weight: 900;
 }
 
 .dntn {
-  background: linear-gradient(to bottom, #FFD93D 0%, #FFF8DC 50%, #FFD93D 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
+  color: var(--accent-color);
+  text-shadow: var(--text-header-shadow);
+  font-weight: 900;
   letter-spacing: 3px;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .boujee-text {
   color: var(--accent-color);
-  font-size: 8vh;
-  /* Massive text for price */
-  font-weight: 800;
+  font-size: 8.5vh;
+  /* Larger text */
+  font-weight: 900;
+  /* Extra Bold */
   background: none;
   border: none;
   padding: 0;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  letter-spacing: 5px;
-  /* Extremely wide spacing for clarity */
+  text-shadow: var(--strong-shadow);
+  letter-spacing: 4px;
+  filter: drop-shadow(0 0 5px rgba(255, 217, 61, 0.3));
 }
 
 .market-input {

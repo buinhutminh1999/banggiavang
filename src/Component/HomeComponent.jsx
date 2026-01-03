@@ -9,6 +9,21 @@ import WeatherWidget from './WeatherWidget';
 function HomeComponent() {
     const navigate = useNavigate();
     const wakeLockRef = useRef(null);
+    const [isSunlightMode, setIsSunlightMode] = React.useState(false);
+
+    // Callback to receive weather code from widget
+    // Codes 0, 1, 2, 3 represent Sunny/Clear/Partly Cloudy
+    const handleWeatherUpdate = React.useCallback((code) => {
+        const hour = new Date().getHours();
+        // Enable Sunlight Mode if it's daytime (7AM-5PM) AND weather is "Sunny"
+        const isDaytime = hour >= 7 && hour <= 17;
+        const isSunny = [0, 1, 2, 3].includes(code);
+
+        // Manual override for testing: console.log to debug
+        console.log(`Weather Code: ${code} | Hour: ${hour} | Sunlight Mode: ${isDaytime && isSunny}`);
+
+        setIsSunlightMode(isDaytime && isSunny);
+    }, []);
 
     // Redirect mobile users to Admin page
     useEffect(() => {
@@ -54,8 +69,9 @@ function HomeComponent() {
     }, []);
 
     return (
-        <div className='d-flex flex-column position-relative' style={{ height: '100vh', padding: '1vh 2vw', overflow: 'hidden' }}>
-            <GoldParticles />
+        <div className={`d-flex flex-column position-relative ${isSunlightMode ? 'sunlight-mode' : ''}`} style={{ height: '100vh', padding: '1vh 2vw', overflow: 'hidden' }}>
+            {/* Disable particles in Sunlight Mode for maximum clarity */}
+            {!isSunlightMode && <GoldParticles />}
 
             {/* TV Header: More Compact, Horizontal */}
             <header className='container-fluid header mb-3 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 1 }}>
@@ -73,35 +89,12 @@ function HomeComponent() {
                 </div>
 
                 <div className='d-flex align-items-center gap-4'>
-                    <WeatherWidget />
+                    <WeatherWidget onWeatherUpdate={handleWeatherUpdate} />
                     <div className='text-end'>
                         <DataCurrentTime />
                     </div>
 
-                    {/* Payment QR Code */}
-                    <div className="qr-card position-relative" style={{ padding: '15px' }}>
-                        <div style={{
-                            position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-                            border: '2px dashed var(--accent-color)', borderRadius: '16px',
-                            pointerEvents: 'none', opacity: 0.5
-                        }}></div>
 
-                        <div style={{ textAlign: 'center', marginBottom: '5px' }}>
-                            <span className='glass-pill' style={{ fontSize: '1.5vh', padding: '2px 10px', fontWeight: 'bold', color: 'var(--accent-color)', border: '1px solid var(--accent-color)' }}>
-                                🆙 QUÉT MÃ
-                            </span>
-                        </div>
-
-                        <img
-                            src="https://img.vietqr.io/image/970449-026809130001-compact.jpg?amount=0&addInfo=Tiệm Vàng Phương Thảo&accountName=TRAN THI PHUONG THAO"
-                            alt="QR Payment"
-                            style={{ width: '180px', height: '180px', borderRadius: '8px' }}
-                        />
-                        <div style={{ fontSize: '2.0vh', fontWeight: 'bold', color: '#002f5e', marginTop: '8px', textAlign: 'center' }}>
-                            LPBANK - 026809130001<br />
-                            <span style={{ fontSize: '1.6vh', color: '#d32f2f' }}>TRAN THI PHUONG THAO</span>
-                        </div>
-                    </div>
                 </div>
             </header>
 
