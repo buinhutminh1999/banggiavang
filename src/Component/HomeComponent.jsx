@@ -76,7 +76,7 @@ function HomeComponent() {
             {/* TV Header: More Compact, Horizontal */}
             <header className='container-fluid header mb-0 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 1 }}>
                 <div className='d-flex flex-column justify-content-center text-center'>
-                    <h2 className='dntn m-0' style={{ fontSize: '2.5vh', lineHeight: '1.2', paddingBottom: '0' }}>DNTN TIỆM VÀNG</h2>
+                    <h2 className='dntn m-0' style={{ fontSize: '6vh', lineHeight: '1.2', paddingBottom: '0' }}>DNTN TIỆM VÀNG</h2>
                     <p style={{ fontSize: 'min(13vh, 9vw)', fontWeight: '800', lineHeight: 1.1, margin: 0, letterSpacing: '3px', paddingBottom: '0.5vh', paddingTop: '1vh', display: 'block', whiteSpace: 'nowrap' }} className="animate-charcter">PHƯƠNG THẢO</p>
                 </div>
 

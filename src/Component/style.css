@@ -107,6 +107,9 @@ body.sunlight-mode {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   backdrop-filter: blur(10px);
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
 }
 
 /* Enhanced QR Card */
@@ -298,18 +301,19 @@ html {
 .animate-charcter {
   text-transform: uppercase;
   background-image: linear-gradient(to right,
-      #00e676 0%,
-      #69f0ae 25%,
-      #00c853 50%,
-      #69f0ae 75%,
-      #00e676 100%);
+      #FF0000 0%,
+      #FFD700 25%,
+      #FF8C00 50%,
+      #FFD700 75%,
+      #FF0000 100%);
   background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   display: inline-block;
   font-weight: 900;
-  animation: shimmer 3s linear infinite;
+  animation: shimmer 2s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5));
 }
 
 @keyframes shimmer {
