@@ -74,18 +74,10 @@ function HomeComponent() {
             {!isSunlightMode && <GoldParticles />}
 
             {/* TV Header: More Compact, Horizontal */}
-            <header className='container-fluid header mb-1 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 1 }}>
+            <header className='container-fluid header mb-0 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 1 }}>
                 <div className='d-flex flex-column justify-content-center text-center'>
-                    <h2 className='dntn m-0' style={{ fontSize: '4vh', lineHeight: '1.2', paddingBottom: '0.1vh' }}>DNTN TIỆM VÀNG</h2>
-
-                    {/* Decorative Divider */}
-                    <div className='d-flex align-items-center justify-content-center mb-0' style={{ opacity: 0.8 }}>
-                        <span style={{ height: '2px', width: '6vh', background: 'linear-gradient(90deg, transparent, var(--accent-color))' }}></span>
-                        <span style={{ color: 'var(--accent-color)', margin: '0 10px', fontSize: '2.5vh', lineHeight: 1 }}>♦</span>
-                        <span style={{ height: '2px', width: '6vh', background: 'linear-gradient(270deg, transparent, var(--accent-color))' }}></span>
-                    </div>
-
-                    <p style={{ fontSize: '9vh', fontWeight: '800', lineHeight: 1.1, margin: 0, letterSpacing: '3px', paddingBottom: '0.5vh', display: 'block' }} className="animate-charcter">PHƯƠNG THẢO</p>
+                    <h2 className='dntn m-0' style={{ fontSize: '2.5vh', lineHeight: '1.2', paddingBottom: '0' }}>DNTN TIỆM VÀNG</h2>
+                    <p style={{ fontSize: '13vh', fontWeight: '800', lineHeight: 1.1, margin: 0, letterSpacing: '3px', paddingBottom: '0.5vh', paddingTop: '1vh', display: 'block' }} className="animate-charcter">PHƯƠNG THẢO</p>
                 </div>
 
                 <div className='d-flex align-items-center gap-4'>

@@ -59,7 +59,7 @@ export default function WeatherWidget() {
 
     return (
         <div className="glass-pill d-flex align-items-center gap-3">
-            <span className="weather-icon animate-charcter">{desc.icon}</span>
+            <span className="weather-icon">{desc.icon}</span>
             <div className="d-flex flex-column">
                 <span className="weather-temp" style={{ lineHeight: '1' }}>{weather.temp}°C</span>
                 <span style={{ fontSize: '2.2vh', color: '#ccc', fontWeight: '500' }}>Long Xuyên</span>
