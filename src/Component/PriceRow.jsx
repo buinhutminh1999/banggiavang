@@ -22,7 +22,7 @@ function PriceRow({ item, value, editMode, cheDoEdit, handleValueChange, index }
                     <motion.div
                         key={value[item2.nameInput]} // Trigger animation on change
                         initial={{ scale: 1.5, color: '#ffffff', textShadow: '0 0 20px rgba(255,255,255,0.8)' }}
-                        animate={{ scale: 1, color: 'var(--accent-color)', textShadow: '0 4px 8px rgba(0,0,0,0.6)' }}
+                        animate={{ scale: 1, color: '#ff3333', textShadow: '0 4px 8px rgba(0,0,0,0.6)' }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     >
                         <span className='boujee-text' style={{ cursor: 'default' }}>

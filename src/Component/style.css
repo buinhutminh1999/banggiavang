@@ -241,7 +241,9 @@ html {
 }
 
 .custom-table thead th {
-  color: white;
+  color: #e0ffff;
+  /* Diamond Blue */
+  text-shadow: 0 0 10px rgba(224, 255, 255, 0.5);
   border-bottom: 4px solid var(--accent-color);
   font-weight: 800;
   text-transform: uppercase;
@@ -295,10 +297,30 @@ html {
 /* Animation */
 .animate-charcter {
   text-transform: uppercase;
-  color: var(--accent-color);
-  text-shadow: var(--text-header-shadow);
+  background-image: linear-gradient(to bottom,
+      #231557 0%,
+      #44107a 20%,
+      #ff1361 40%,
+      #fff800 60%,
+      #00e676 80%,
+      #231557 100%);
+  background-size: 100% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: flow-down 2s linear infinite;
   display: inline-block;
   font-weight: 900;
+}
+
+@keyframes flow-down {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 0% 200%;
+  }
 }
 
 .dntn {
@@ -309,7 +331,7 @@ html {
 }
 
 .boujee-text {
-  color: var(--accent-color);
+  color: #ff3333;
   font-size: 8.5vh;
   /* Larger text */
   font-weight: 900;
@@ -515,4 +537,43 @@ html {
   background: #ffebee;
   color: #b71c1c;
   border: 1px solid #ffcdd2;
+}
+
+/* Marquee Effect for PHUONG THAO */
+.running-text-container {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.running-text {
+  display: inline-block;
+  animation: marquee-bounce 5s infinite alternate ease-in-out;
+}
+
+@keyframes marquee-bounce {
+  0% {
+    transform: translateX(-20px);
+  }
+
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+/* Or if they want full scroll */
+.running-text-scroll {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee-scroll 10s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
 }
