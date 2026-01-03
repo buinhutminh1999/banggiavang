@@ -28,16 +28,16 @@ function DataCurrentTime() {
 
     return (
         <div className='glass-pill text-end' style={{ color: '#00e676' }}> {/* Material Green */}
-            <div style={{ fontSize: '3.5vh', fontWeight: '500', letterSpacing: '1px' }}>
+            <div style={{ fontSize: '3vh', fontWeight: '500', letterSpacing: '1px' }}>
                 <span style={{ color: '#00e676', fontWeight: 'bold' }}>HÔM NAY: </span>
                 {date.toLocaleDateString('vi-VN')}
             </div>
             {lunarDate && (
-                <div style={{ fontSize: '3vh', color: '#69f0ae', fontStyle: 'italic', fontWeight: 'bold' }}> {/* Lighter Green for subtext */}
+                <div style={{ fontSize: '2.5vh', color: '#69f0ae', fontStyle: 'italic', fontWeight: 'bold' }}> {/* Lighter Green for subtext */}
                     {lunarDate}
                 </div>
             )}
-            <div style={{ fontSize: '6vh', fontWeight: '800', marginTop: '5px', fontVariantNumeric: 'tabular-nums', letterSpacing: '2px', lineHeight: 1 }}>
+            <div style={{ fontSize: '5.5vh', fontWeight: '800', marginTop: '5px', fontVariantNumeric: 'tabular-nums', letterSpacing: '2px', lineHeight: 1 }}>
                 {date.toLocaleTimeString('vi-VN')}
             </div>
         </div>
