@@ -77,11 +77,11 @@ function HomeComponent() {
             {!isSunlightMode && <GoldParticles />}
 
             {/* VIP Architectural TV Header */}
-            <header className='container-fluid vip-header mb-2 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 2 }}>
+            <header className='container-fluid vip-header mb-1 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 2 }}>
                 {/* Brand Identity with Royal Insignia */}
                 <div className='d-flex align-items-center gap-3'>
                     <div className='brand-emblem-badge'>
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5Z" fill="url(#crownGrad)" stroke="#FFE082" strokeWidth="0.8" />
                             <path d="M19 19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V17H19V19Z" fill="url(#crownGrad)" />
                             <circle cx="12" cy="3.5" r="1.4" fill="#FFFDE7" />

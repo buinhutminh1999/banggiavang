@@ -17,7 +17,7 @@ function PriceRow({ item, value, editMode, cheDoEdit, handleValueChange, index }
             transition={{ delay: index * 0.12, duration: 0.45, ease: "easeOut" }}
         >
             {/* Column 1: Gold Type */}
-            <td className='td-gold-col text-center' style={{ width: '28%' }}>
+            <td className='td-gold-col text-center' style={{ width: '30%' }}>
                 <span className='gold-title'>{item.nameFirstTD}</span>
             </td>
 
@@ -27,7 +27,7 @@ function PriceRow({ item, value, editMode, cheDoEdit, handleValueChange, index }
                 const priceValue = value[item2.nameInput];
 
                 return (
-                    <td key={index2} className={`td-price-cell ${isSell ? 'cell-sell' : 'cell-buy'}`} style={{ width: '36%' }}>
+                    <td key={index2} className={`td-price-cell ${isSell ? 'cell-sell' : 'cell-buy'}`} style={{ width: '35%' }}>
                         <div className={`price-card-pod ${isSell ? 'pod-sell' : 'pod-buy'}`}>
                             <motion.div
                                 key={priceValue}
