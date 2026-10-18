@@ -1,35 +1,52 @@
 import React, { memo } from 'react';
 import { motion } from 'framer-motion';
-import { NumericFormat } from 'react-number-format';
 
 function PriceRow({ item, value, editMode, cheDoEdit, handleValueChange, index }) {
 
     // Helper to format display value
     const formatDisplay = (val) => {
-        if (!val) return '0';
-        return val.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        if (!val || val === '0') return '---';
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
 
     return (
         <motion.tr
-            initial={{ opacity: 0, x: -50 }}
+            className='luxury-price-row'
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
+            transition={{ delay: index * 0.12, duration: 0.45, ease: "easeOut" }}
         >
-            <td className='fw-bold' style={{ width: '30%' }}>{item.nameFirstTD}</td>
+            {/* Column 1: Gold Type */}
+            <td className='td-gold-col text-start' style={{ width: '28%' }}>
+                <div className='d-flex align-items-center gap-3 ps-3 py-1'>
+                    <div className={`gold-tag-badge ${item.tagClass}`}>
+                        {item.tag}
+                    </div>
+                    <span className='gold-title'>{item.nameFirstTD}</span>
+                </div>
+            </td>
+
+            {/* Column 2: BÁN RA & Column 3: MUA VÀO */}
             {item.listContent.map((item2, index2) => {
-                return <td key={index2}>
-                    <motion.div
-                        key={value[item2.nameInput]} // Trigger animation on change
-                        initial={{ scale: 1.5, color: '#ffffff', textShadow: '0 0 20px rgba(255,255,255,0.8)' }}
-                        animate={{ scale: 1, color: '#ff3333', textShadow: '0 4px 8px rgba(0,0,0,0.6)' }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                        <span className='boujee-text' style={{ cursor: 'default' }}>
-                            {formatDisplay(value[item2.nameInput])}
-                        </span>
-                    </motion.div>
-                </td>
+                const isSell = item2.type === 'sell';
+                const priceValue = value[item2.nameInput];
+
+                return (
+                    <td key={index2} className={`td-price-cell ${isSell ? 'cell-sell' : 'cell-buy'}`} style={{ width: '36%' }}>
+                        <div className={`price-card-pod ${isSell ? 'pod-sell' : 'pod-buy'}`}>
+                            <motion.div
+                                key={priceValue}
+                                initial={{ scale: 1.18, filter: 'brightness(2)' }}
+                                animate={{ scale: 1, filter: 'brightness(1)' }}
+                                transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                            >
+                                <span className={`price-digits ${isSell ? 'digits-sell' : 'digits-buy'}`}>
+                                    {formatDisplay(priceValue)}
+                                </span>
+                            </motion.div>
+                        </div>
+                    </td>
+                );
             })}
         </motion.tr>
     )

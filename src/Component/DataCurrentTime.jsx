@@ -27,17 +27,20 @@ function DataCurrentTime() {
     }, []);
 
     return (
-        <div className='glass-pill text-end' style={{ color: '#00e676', padding: '1vh 1.5vw' }}> {/* Material Green */}
-            <div style={{ fontSize: '2.5vh', fontWeight: '500', letterSpacing: '1px', lineHeight: 1.2 }}>
-                <span style={{ color: '#00e676', fontWeight: 'bold' }}>HÔM NAY: </span>
-                {date.toLocaleDateString('vi-VN')}
-            </div>
-            {lunarDate && (
-                <div style={{ fontSize: '2.2vh', color: '#69f0ae', fontStyle: 'italic', fontWeight: 'bold', whiteSpace: 'nowrap', lineHeight: 1.2 }}> {/* Lighter Green for subtext */}
-                    {lunarDate}
+        <div className='status-capsule time-capsule d-flex align-items-center gap-3'>
+            <div className='d-flex flex-column text-end justify-content-center'>
+                <div className='calendar-date'>
+                    <span className='date-prefix'>HÔM NAY: </span>
+                    <span className='date-val'>{date.toLocaleDateString('vi-VN')}</span>
                 </div>
-            )}
-            <div style={{ fontSize: '5vh', fontWeight: '800', marginTop: '0.5vh', fontVariantNumeric: 'tabular-nums', letterSpacing: '2px', lineHeight: 1 }}>
+                {lunarDate && (
+                    <div className='lunar-date'>
+                        🌙 {lunarDate}
+                    </div>
+                )}
+            </div>
+            <div className='capsule-divider'></div>
+            <div className='digital-clock-display'>
                 {date.toLocaleTimeString('vi-VN')}
             </div>
         </div>

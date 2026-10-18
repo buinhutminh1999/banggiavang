@@ -26,7 +26,7 @@ const weatherDescriptions = {
     99: { icon: '⛈️', text: 'Giông mạnh' },
 };
 
-export default function WeatherWidget() {
+export default function WeatherWidget({ onWeatherUpdate }) {
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
@@ -41,6 +41,9 @@ export default function WeatherWidget() {
                         temp: Math.round(data.current.temperature_2m),
                         code: data.current.weather_code,
                     });
+                    if (onWeatherUpdate) {
+                        onWeatherUpdate(data.current.weather_code);
+                    }
                 }
             } catch (error) {
                 // Silent fail - widget just won't show
@@ -51,18 +54,18 @@ export default function WeatherWidget() {
         // Refresh weather every 5 minutes
         const interval = setInterval(fetchWeather, 5 * 60 * 1000);
         return () => clearInterval(interval);
-    }, []);
+    }, [onWeatherUpdate]);
 
     if (!weather) return null;
 
     const desc = weatherDescriptions[weather.code] || { icon: '🌡️', text: '' };
 
     return (
-        <div className="glass-pill d-flex align-items-center gap-3">
+        <div className="status-capsule weather-capsule d-flex align-items-center gap-2">
             <span className="weather-icon">{desc.icon}</span>
-            <div className="d-flex flex-column">
-                <span className="weather-temp" style={{ lineHeight: '1' }}>{weather.temp}°C</span>
-                <span style={{ fontSize: '2.2vh', color: '#ccc', fontWeight: '500' }}>Long Xuyên</span>
+            <div className="d-flex flex-column text-start">
+                <span className="weather-temp">{weather.temp}°C</span>
+                <span className="weather-city">Long Xuyên</span>
             </div>
         </div>
     );

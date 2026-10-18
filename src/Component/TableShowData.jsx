@@ -8,17 +8,35 @@ import { db } from '../firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 
 const listNull = {
-    giaBan9999: '0',
-    giaMua9999: '0',
+    giaBan999: '0',
+    giaMua999: '0',
     giaBan610: '0',
     giaMua610: '0',
+    giaBan600: '0',
+    giaMua600: '0',
 }
 
 export default function TableShowData() {
     const [value, setValue] = useState(() => {
         // Try to load from localStorage first
         const cached = localStorage.getItem('gold_prices');
-        return cached ? JSON.parse(cached) : null;
+        if (cached) {
+            try {
+                const raw = JSON.parse(cached);
+                return {
+                    ...raw,
+                    giaBan999: raw.giaBan999 ?? raw.giaBan9999 ?? '0',
+                    giaMua999: raw.giaMua999 ?? raw.giaMua9999 ?? '0',
+                    giaBan610: raw.giaBan610 ?? '0',
+                    giaMua610: raw.giaMua610 ?? '0',
+                    giaBan600: raw.giaBan600 ?? '0',
+                    giaMua600: raw.giaMua600 ?? '0',
+                };
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
     });
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
@@ -39,7 +57,16 @@ export default function TableShowData() {
         const unsubscribe = onSnapshot(pricesDoc,
             (docSnap) => {
                 if (docSnap.exists()) {
-                    const data = docSnap.data();
+                    const raw = docSnap.data();
+                    const data = {
+                        ...raw,
+                        giaBan999: raw.giaBan999 ?? raw.giaBan9999 ?? '0',
+                        giaMua999: raw.giaMua999 ?? raw.giaMua9999 ?? '0',
+                        giaBan610: raw.giaBan610 ?? '0',
+                        giaMua610: raw.giaMua610 ?? '0',
+                        giaBan600: raw.giaBan600 ?? '0',
+                        giaMua600: raw.giaMua600 ?? '0',
+                    };
                     setValue(data);
                     // Cache to localStorage for offline use
                     localStorage.setItem('gold_prices', JSON.stringify(data));
@@ -56,53 +83,50 @@ export default function TableShowData() {
 
     const listArr = useMemo(() => {
         return [
-            { id: 0, nameFirstTD: 'VÀNG 9999', listContent: [{ nameInput: 'giaBan9999' }, { nameInput: 'giaMua9999' }] },
-            { id: 1, nameFirstTD: 'VÀNG 610', listContent: [{ nameInput: 'giaBan610' }, { nameInput: 'giaMua610' }] },
+            {
+                id: 0,
+                nameFirstTD: 'VÀNG 999',
+                tag: '24K',
+                tagClass: 'tag-999',
+                listContent: [{ nameInput: 'giaBan999', type: 'sell' }, { nameInput: 'giaMua999', type: 'buy' }]
+            },
+            {
+                id: 1,
+                nameFirstTD: 'VÀNG 610',
+                tag: '14.6K',
+                tagClass: 'tag-610',
+                listContent: [{ nameInput: 'giaBan610', type: 'sell' }, { nameInput: 'giaMua610', type: 'buy' }]
+            },
+            {
+                id: 2,
+                nameFirstTD: 'VÀNG 600',
+                tag: '14.4K',
+                tagClass: 'tag-600',
+                listContent: [{ nameInput: 'giaBan600', type: 'sell' }, { nameInput: 'giaMua600', type: 'buy' }]
+            },
         ]
     }, [])
 
     if (!value) {
         return (
-            <div className="d-flex justify-content-center align-items-center h-100 flex-column">
-                <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}></div>
-                <h3 className="mt-3 text-white animate-charcter">⏳ Đang cập nhật dữ liệu...</h3>
+            <div className="d-flex justify-content-center align-items-center h-100 flex-column luxury-loading">
+                <div className="luxury-spinner" role="status"></div>
+                <h3 className="mt-4 text-gold-shimmer">ĐANG ĐỒNG BỘ GIÁ VÀNG TRỰC TIẾP...</h3>
             </div>
         );
     }
 
     return (
-        <section className='container-fluid h-100 p-0 position-relative'>
-            {/* Live Status Indicator */}
-            <div className="live-indicator" style={{
-                position: 'absolute',
-                top: '15px',
-                left: '20px',
-                zIndex: 100,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-            }}>
-                <span style={{
-                    width: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    backgroundColor: isOnline ? '#4CAF50' : '#f44336',
-                    boxShadow: isOnline ? '0 0 10px #4CAF50' : '0 0 10px #f44336',
-                    animation: 'pulse-live 2s infinite'
-                }}></span>
-                <span style={{
-                    fontSize: '1.5vh',
-                    color: isOnline ? '#4CAF50' : '#f44336',
-                    fontWeight: 'bold',
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase'
-                }}>
-                    {isOnline ? 'LIVE' : 'OFFLINE'}
-                </span>
-            </div>
+        <section className='container-fluid h-100 p-0 position-relative d-flex flex-column'>
+            {/* Offline Alert Badge (only visible when offline) */}
+            {!isOnline && (
+                <div className="offline-banner">
+                    ⚠️ MẤT KẾT NỐI INTERNET - ĐANG HIỂN THỊ DỮ LIỆU ĐÃ LƯU
+                </div>
+            )}
 
-            <div className='glass-panel p-3 d-flex flex-column h-100'>
-                <table className="table align-middle table-bordered mb-0 custom-table h-100">
+            <div className='glass-board-panel d-flex flex-column h-100'>
+                <table className="table align-middle mb-0 custom-table h-100">
                     <thead>
                         <TableThead />
                     </thead>

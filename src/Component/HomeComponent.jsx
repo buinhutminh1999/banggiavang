@@ -69,24 +69,48 @@ function HomeComponent() {
     }, []);
 
     return (
-        <div className={`d-flex flex-column position-relative ${isSunlightMode ? 'sunlight-mode' : ''}`} style={{ height: '100vh', padding: '1vh 2vw', overflow: 'hidden' }}>
+        <div className={`d-flex flex-column tv-screen-container position-relative ${isSunlightMode ? 'sunlight-mode' : ''}`} style={{ height: '100vh', padding: '0.8vh 1.8vw', overflow: 'hidden' }}>
+            {/* Ambient luxury light leaks */}
+            <div className="ambient-glow top-center"></div>
+
             {/* Disable particles in Sunlight Mode for maximum clarity */}
             {!isSunlightMode && <GoldParticles />}
 
-            {/* TV Header: More Compact, Horizontal */}
-            <header className='container-fluid header mb-0 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 1 }}>
-                <div className='d-flex flex-column justify-content-center text-center'>
-                    <h2 className='dntn m-0' style={{ fontSize: '6vh', lineHeight: '1.2', paddingBottom: '0' }}>DNTN TIỆM VÀNG</h2>
-                    <p style={{ fontSize: 'min(13vh, 9vw)', fontWeight: '800', lineHeight: 1.1, margin: 0, letterSpacing: '3px', paddingBottom: '0.5vh', paddingTop: '1vh', display: 'block', whiteSpace: 'nowrap' }} className="animate-charcter">PHƯƠNG THẢO</p>
+            {/* VIP Architectural TV Header */}
+            <header className='container-fluid vip-header mb-2 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 2 }}>
+                {/* Brand Identity with Royal Insignia */}
+                <div className='d-flex align-items-center gap-3'>
+                    <div className='brand-emblem-badge'>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5Z" fill="url(#crownGrad)" stroke="#FFE082" strokeWidth="0.8" />
+                            <path d="M19 19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V17H19V19Z" fill="url(#crownGrad)" />
+                            <circle cx="12" cy="3.5" r="1.4" fill="#FFFDE7" />
+                            <circle cx="3" cy="4.5" r="1.2" fill="#FFFDE7" />
+                            <circle cx="21" cy="4.5" r="1.2" fill="#FFFDE7" />
+                            <defs>
+                                <linearGradient id="crownGrad" x1="3" y1="4" x2="21" y2="20" gradientUnits="userSpaceOnUse">
+                                    <stop stopColor="#FFF9D2" />
+                                    <stop offset="0.35" stopColor="#FFD700" />
+                                    <stop offset="0.75" stopColor="#F59E0B" />
+                                    <stop offset="1" stopColor="#D97706" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div className='d-flex flex-column justify-content-center text-start'>
+                        <span className='brand-sub-heading'>DNTN TIỆM VÀNG</span>
+                        <h1 className='brand-main-title m-0'>PHƯƠNG THẢO</h1>
+                        <div className='tccs-badge-pill mt-1'>
+                            <span className='tccs-dot-indicator'></span>
+                            <span className='tccs-text-code'>TCCS 02:2026/PTAG</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div className='d-flex align-items-center gap-4'>
+                {/* Right Status Center: Weather & Live Tabular Clock */}
+                <div className='d-flex align-items-center gap-3'>
                     <WeatherWidget onWeatherUpdate={handleWeatherUpdate} />
-                    <div className='text-end'>
-                        <DataCurrentTime />
-                    </div>
-
-
+                    <DataCurrentTime />
                 </div>
             </header>
 

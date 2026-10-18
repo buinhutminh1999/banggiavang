@@ -9,10 +9,12 @@ const PIN_CODE = '1234';
 const PIN_STORAGE_KEY = 'admin_pin_verified';
 
 const listNull = {
-    giaBan9999: '0',
-    giaMua9999: '0',
+    giaBan999: '0',
+    giaMua999: '0',
     giaBan610: '0',
     giaMua610: '0',
+    giaBan600: '0',
+    giaMua600: '0',
 }
 
 export default function AdminPage() {
@@ -38,7 +40,17 @@ export default function AdminPage() {
             const pricesDoc = doc(db, 'settings', 'prices');
             const docSnap = await getDoc(pricesDoc);
             if (docSnap.exists()) {
-                setPrices(docSnap.data());
+                const raw = docSnap.data();
+                setPrices({
+                    ...listNull,
+                    ...raw,
+                    giaBan999: raw.giaBan999 ?? raw.giaBan9999 ?? '0',
+                    giaMua999: raw.giaMua999 ?? raw.giaMua9999 ?? '0',
+                    giaBan610: raw.giaBan610 ?? '0',
+                    giaMua610: raw.giaMua610 ?? '0',
+                    giaBan600: raw.giaBan600 ?? '0',
+                    giaMua600: raw.giaMua600 ?? '0',
+                });
             }
             setIsLoaded(true);
         };
@@ -55,7 +67,11 @@ export default function AdminPage() {
             setMessage('⏳ Đang lưu...');
             try {
                 const pricesDoc = doc(db, 'settings', 'prices');
-                await setDoc(pricesDoc, prices);
+                await setDoc(pricesDoc, {
+                    ...prices,
+                    giaBan9999: prices.giaBan999 || prices.giaBan9999 || '0',
+                    giaMua9999: prices.giaMua999 || prices.giaMua9999 || '0',
+                });
                 const time = new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 setMessage(`✓ Đã lưu lúc ${time}`);
                 // Timer removed to keep the 'Last Saved' message visible
@@ -131,13 +147,13 @@ export default function AdminPage() {
                 </div>
 
                 <div className="price-group">
-                    <h3>VÀNG 9999</h3>
+                    <h3>VÀNG 999</h3>
                     <div className="price-grid">
                         <div className="price-item sell">
                             <label>Bán ra</label>
                             <NumericFormat
-                                value={prices.giaBan9999}
-                                onValueChange={(values) => handlePriceChange('giaBan9999', values)}
+                                value={prices.giaBan999}
+                                onValueChange={(values) => handlePriceChange('giaBan999', values)}
                                 thousandSeparator="."
                                 decimalSeparator=","
                                 className="admin-input"
@@ -148,8 +164,8 @@ export default function AdminPage() {
                         <div className="price-item buy">
                             <label>Mua vào</label>
                             <NumericFormat
-                                value={prices.giaMua9999}
-                                onValueChange={(values) => handlePriceChange('giaMua9999', values)}
+                                value={prices.giaMua999}
+                                onValueChange={(values) => handlePriceChange('giaMua999', values)}
                                 thousandSeparator="."
                                 decimalSeparator=","
                                 className="admin-input"
@@ -180,6 +196,36 @@ export default function AdminPage() {
                             <NumericFormat
                                 value={prices.giaMua610}
                                 onValueChange={(values) => handlePriceChange('giaMua610', values)}
+                                thousandSeparator="."
+                                decimalSeparator=","
+                                className="admin-input"
+                                inputMode="decimal"
+                                pattern="[0-9]*"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="price-group">
+                    <h3>VÀNG 600</h3>
+                    <div className="price-grid">
+                        <div className="price-item sell">
+                            <label>Bán ra</label>
+                            <NumericFormat
+                                value={prices.giaBan600}
+                                onValueChange={(values) => handlePriceChange('giaBan600', values)}
+                                thousandSeparator="."
+                                decimalSeparator=","
+                                className="admin-input"
+                                inputMode="decimal"
+                                pattern="[0-9]*"
+                            />
+                        </div>
+                        <div className="price-item buy">
+                            <label>Mua vào</label>
+                            <NumericFormat
+                                value={prices.giaMua600}
+                                onValueChange={(values) => handlePriceChange('giaMua600', values)}
                                 thousandSeparator="."
                                 decimalSeparator=","
                                 className="admin-input"

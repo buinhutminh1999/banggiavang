@@ -36,19 +36,19 @@ const GoldParticles = () => {
                 },
                 particles: {
                     color: {
-                        value: "#FFD93D", // Matches var(--accent-color)
+                        value: ["#FFD700", "#FFC107", "#FFE57F", "#F59E0B", "#FFF9C4"],
                     },
                     links: {
-                        enable: false, // No lines for cleaner "Gold Dust" look
+                        enable: false,
                     },
                     move: {
-                        direction: "top", // Float upwards
+                        direction: "top",
                         enable: true,
                         outModes: {
                             default: "out",
                         },
                         random: true,
-                        speed: 0.5, // Very slow floating
+                        speed: 0.6,
                         straight: false,
                     },
                     number: {
@@ -56,13 +56,13 @@ const GoldParticles = () => {
                             enable: true,
                             area: 800,
                         },
-                        value: 15,
+                        value: 22,
                     },
                     opacity: {
-                        value: { min: 0.1, max: 0.5 },
+                        value: { min: 0.15, max: 0.75 },
                         animation: {
                             enable: true,
-                            speed: 1,
+                            speed: 1.2,
                             minimumValue: 0.1,
                             sync: false
                         }
@@ -71,7 +71,7 @@ const GoldParticles = () => {
                         type: "circle",
                     },
                     size: {
-                        value: { min: 2, max: 5 },
+                        value: { min: 1.5, max: 4.5 },
                     },
                 },
                 detectRetina: true,
