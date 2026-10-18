@@ -17,13 +17,8 @@ function PriceRow({ item, value, editMode, cheDoEdit, handleValueChange, index }
             transition={{ delay: index * 0.12, duration: 0.45, ease: "easeOut" }}
         >
             {/* Column 1: Gold Type */}
-            <td className='td-gold-col text-start' style={{ width: '28%' }}>
-                <div className='d-flex align-items-center gap-3 ps-3 py-1'>
-                    <div className={`gold-tag-badge ${item.tagClass}`}>
-                        {item.tag}
-                    </div>
-                    <span className='gold-title'>{item.nameFirstTD}</span>
-                </div>
+            <td className='td-gold-col text-center' style={{ width: '28%' }}>
+                <span className='gold-title'>{item.nameFirstTD}</span>
             </td>
 
             {/* Column 2: BÁN RA & Column 3: MUA VÀO */}

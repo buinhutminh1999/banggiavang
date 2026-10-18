@@ -86,22 +86,16 @@ export default function TableShowData() {
             {
                 id: 0,
                 nameFirstTD: 'VÀNG 999',
-                tag: '24K',
-                tagClass: 'tag-999',
                 listContent: [{ nameInput: 'giaBan999', type: 'sell' }, { nameInput: 'giaMua999', type: 'buy' }]
             },
             {
                 id: 1,
                 nameFirstTD: 'VÀNG 610',
-                tag: '14.6K',
-                tagClass: 'tag-610',
                 listContent: [{ nameInput: 'giaBan610', type: 'sell' }, { nameInput: 'giaMua610', type: 'buy' }]
             },
             {
                 id: 2,
                 nameFirstTD: 'VÀNG 600',
-                tag: '14.4K',
-                tagClass: 'tag-600',
                 listContent: [{ nameInput: 'giaBan600', type: 'sell' }, { nameInput: 'giaMua600', type: 'buy' }]
             },
         ]
