@@ -1,4 +1,4 @@
-// TableShowData: Displays real-time prices with glassmorphism UI
+// TableShowData: Displays real-time prices with Royal Imperial Gold & Ruby UI
 import React, { useMemo, useState, useEffect } from 'react'
 import TableFoot from './TableFoot';
 import TableThead from './TableThead';
@@ -18,7 +18,7 @@ const listNull = {
 
 export default function TableShowData() {
     const [value, setValue] = useState(() => {
-        // Try to load from localStorage first
+        // Try to load from localStorage first for instant zero-latency render
         const cached = localStorage.getItem('gold_prices');
         if (cached) {
             try {
@@ -74,7 +74,7 @@ export default function TableShowData() {
                     setValue(listNull);
                 }
             },
-            (error) => {
+            () => {
                 // Silent error handling
             }
         );
@@ -85,16 +85,19 @@ export default function TableShowData() {
         return [
             {
                 id: 0,
+                code: '999',
                 nameFirstTD: 'VÀNG 999',
                 listContent: [{ nameInput: 'giaBan999', type: 'sell' }, { nameInput: 'giaMua999', type: 'buy' }]
             },
             {
                 id: 1,
+                code: '610',
                 nameFirstTD: 'VÀNG 610',
                 listContent: [{ nameInput: 'giaBan610', type: 'sell' }, { nameInput: 'giaMua610', type: 'buy' }]
             },
             {
                 id: 2,
+                code: '600',
                 nameFirstTD: 'VÀNG 600',
                 listContent: [{ nameInput: 'giaBan600', type: 'sell' }, { nameInput: 'giaMua600', type: 'buy' }]
             },
@@ -105,17 +108,17 @@ export default function TableShowData() {
         return (
             <div className="d-flex justify-content-center align-items-center h-100 flex-column luxury-loading">
                 <div className="luxury-spinner" role="status"></div>
-                <h3 className="mt-4 text-gold-shimmer">ĐANG ĐỒNG BỘ GIÁ VÀNG TRỰC TIẾP...</h3>
+                <h3 className="mt-4 text-gold-shimmer">ĐANG ĐỒNG BỘ BẢNG GIÁ VÀNG TRỰC TUYẾN...</h3>
             </div>
         );
     }
 
     return (
-        <section className='container-fluid h-100 p-0 position-relative d-flex flex-column'>
+        <section className='container-fluid h-100 p-0 position-relative d-flex flex-column' style={{ minHeight: 0 }}>
             {/* Offline Alert Badge (only visible when offline) */}
             {!isOnline && (
                 <div className="offline-banner">
-                    ⚠️ MẤT KẾT NỐI INTERNET - ĐANG HIỂN THỊ DỮ LIỆU ĐÃ LƯU
+                    ⚠️ MẤT KẾT NỐI INTERNET — ĐANG HIỂN THỊ DỮ LIỆU ĐÃ LƯU GẦN NHẤT
                 </div>
             )}
 
@@ -140,7 +143,7 @@ export default function TableShowData() {
                         </AnimatePresence>
                     </tbody>
                     <tfoot>
-                        <TableFoot slogan={value?.slogan} />
+                        <TableFoot slogan={value?.slogan} isOnline={isOnline} />
                     </tfoot>
                 </table>
             </div>

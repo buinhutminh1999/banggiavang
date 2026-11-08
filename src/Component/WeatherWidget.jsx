@@ -22,7 +22,7 @@ const weatherDescriptions = {
     81: { icon: '🌦️', text: 'Mưa rào vừa' },
     82: { icon: '🌦️', text: 'Mưa rào lớn' },
     95: { icon: '⛈️', text: 'Giông bão' },
-    96: { icon: '⛈️', text: 'Giông có mưa đá' },
+    96: { icon: '⛈️', text: 'Giông mưa đá' },
     99: { icon: '⛈️', text: 'Giông mạnh' },
 };
 
@@ -58,14 +58,18 @@ export default function WeatherWidget({ onWeatherUpdate }) {
 
     if (!weather) return null;
 
-    const desc = weatherDescriptions[weather.code] || { icon: '🌡️', text: '' };
+    const desc = weatherDescriptions[weather.code] || { icon: '🌡️', text: 'Thời tiết' };
 
     return (
-        <div className="status-capsule weather-capsule d-flex align-items-center gap-2">
-            <span className="weather-icon">{desc.icon}</span>
-            <div className="d-flex flex-column text-start">
-                <span className="weather-temp">{weather.temp}°C</span>
-                <span className="weather-city">Long Xuyên</span>
+        <div className="royal-status-pod weather-pod">
+            <div className="weather-icon-orb">
+                <span className="weather-icon">{desc.icon}</span>
+            </div>
+            <div className="d-flex flex-column text-start justify-content-center">
+                <div className="d-flex align-items-baseline gap-1">
+                    <span className="weather-temp">{weather.temp}°C</span>
+                </div>
+                <span className="weather-city">Long Xuyên • {desc.text}</span>
             </div>
         </div>
     );

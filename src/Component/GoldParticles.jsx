@@ -22,21 +22,14 @@ const GoldParticles = () => {
                 interactivity: {
                     events: {
                         onHover: {
-                            enable: true,
-                            mode: "repulse",
+                            enable: false,
                         },
                         resize: true,
-                    },
-                    modes: {
-                        repulse: {
-                            distance: 100,
-                            duration: 0.4,
-                        },
                     },
                 },
                 particles: {
                     color: {
-                        value: ["#FFD700", "#FFC107", "#FFE57F", "#F59E0B", "#FFF9C4"],
+                        value: ["#FFD700", "#FFECB3", "#FFB300", "#FFF8E1", "#FF8F00"],
                     },
                     links: {
                         enable: false,
@@ -48,30 +41,30 @@ const GoldParticles = () => {
                             default: "out",
                         },
                         random: true,
-                        speed: 0.6,
+                        speed: 0.45,
                         straight: false,
                     },
                     number: {
                         density: {
                             enable: true,
-                            area: 800,
+                            area: 950,
                         },
-                        value: 22,
+                        value: 20,
                     },
                     opacity: {
-                        value: { min: 0.15, max: 0.75 },
+                        value: { min: 0.1, max: 0.6 },
                         animation: {
                             enable: true,
-                            speed: 1.2,
-                            minimumValue: 0.1,
+                            speed: 0.9,
+                            minimumValue: 0.08,
                             sync: false
                         }
                     },
                     shape: {
-                        type: "circle",
+                        type: ["circle", "star"],
                     },
                     size: {
-                        value: { min: 1.5, max: 4.5 },
+                        value: { min: 1.5, max: 4 },
                     },
                 },
                 detectRetina: true,

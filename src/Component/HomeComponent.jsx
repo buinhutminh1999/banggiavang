@@ -19,9 +19,6 @@ function HomeComponent() {
         const isDaytime = hour >= 7 && hour <= 17;
         const isSunny = [0, 1, 2, 3].includes(code);
 
-        // Manual override for testing: console.log to debug
-        console.log(`Weather Code: ${code} | Hour: ${hour} | Sunlight Mode: ${isDaytime && isSunny}`);
-
         setIsSunlightMode(isDaytime && isSunny);
     }, []);
 
@@ -39,20 +36,14 @@ function HomeComponent() {
             try {
                 if ('wakeLock' in navigator) {
                     wakeLockRef.current = await navigator.wakeLock.request('screen');
-                    console.log('✅ Wake Lock is active - screen will stay on');
-
-                    wakeLockRef.current.addEventListener('release', () => {
-                        console.log('⚠️ Wake Lock was released');
-                    });
                 }
             } catch (err) {
-                console.log(`Wake Lock error: ${err.name}, ${err.message}`);
+                // Silent fallback if Wake Lock is unsupported or blocked
             }
         };
 
         requestWakeLock();
 
-        // Re-acquire wake lock when page becomes visible again
         const handleVisibilityChange = () => {
             if (document.visibilityState === 'visible') {
                 requestWakeLock();
@@ -69,54 +60,83 @@ function HomeComponent() {
     }, []);
 
     return (
-        <div className={`d-flex flex-column tv-screen-container position-relative ${isSunlightMode ? 'sunlight-mode' : ''}`} style={{ height: '100vh', padding: '0.8vh 1.8vw', overflow: 'hidden' }}>
-            {/* Ambient luxury light leaks */}
+        <div className={`d-flex flex-column tv-screen-container position-relative ${isSunlightMode ? 'sunlight-mode' : ''}`}>
+            {/* Ambient Royal Gold & Crimson Light Leaks */}
             <div className="ambient-glow top-center"></div>
+            <div className="ambient-glow bottom-ruby"></div>
+
+            {/* Ornate Imperial Corner Borders */}
+            <div className="royal-frame-border"></div>
 
             {/* Disable particles in Sunlight Mode for maximum clarity */}
             {!isSunlightMode && <GoldParticles />}
 
-            {/* VIP Architectural TV Header */}
-            <header className='container-fluid vip-header mb-1 d-flex justify-content-between align-items-center position-relative' style={{ zIndex: 2 }}>
-                {/* Brand Identity with Royal Insignia */}
-                <div className='d-flex align-items-center gap-3'>
+            {/* Royal Architectural TV Header */}
+            <header className='container-fluid vip-header d-flex justify-content-between align-items-center position-relative'>
+                {/* Left: Brand Identity with Imperial Crest */}
+                <div className='d-flex align-items-center gap-3 brand-identity-group'>
                     <div className='brand-emblem-badge'>
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5Z" fill="url(#crownGrad)" stroke="#FFE082" strokeWidth="0.8" />
-                            <path d="M19 19C19 19.5523 18.5523 20 18 20H6C5.44772 20 5 19.5523 5 19V17H19V19Z" fill="url(#crownGrad)" />
-                            <circle cx="12" cy="3.5" r="1.4" fill="#FFFDE7" />
-                            <circle cx="3" cy="4.5" r="1.2" fill="#FFFDE7" />
-                            <circle cx="21" cy="4.5" r="1.2" fill="#FFFDE7" />
+                        <svg className="royal-crest-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            {/* Outer Octagonal/Shield Halo */}
+                            <circle cx="32" cy="32" r="29" stroke="url(#goldRim)" strokeWidth="1.5" strokeDasharray="4 2" opacity="0.75" />
+                            {/* Diamond Facet Backing */}
+                            <path d="M32 6L54 24L32 58L10 24L32 6Z" fill="url(#rubyCore)" stroke="url(#goldRim)" strokeWidth="1.5" />
+                            {/* Imperial Crown */}
+                            <path d="M14 42L10 20L23 30L32 14L41 30L54 20L50 42H14Z" fill="url(#crownGold)" stroke="#FFFDF0" strokeWidth="1.4" strokeLinejoin="round" />
+                            {/* Crown Base Band */}
+                            <rect x="14" y="45" width="36" height="6" rx="3" fill="url(#crownGold)" stroke="#FFF8DC" strokeWidth="1" />
+                            {/* Crown Jewels */}
+                            <circle cx="32" cy="11" r="3" fill="#FFFDE7" />
+                            <circle cx="10" cy="17.5" r="2.3" fill="#FFFDE7" />
+                            <circle cx="54" cy="17.5" r="2.3" fill="#FFFDE7" />
+                            <circle cx="23" cy="36" r="2" fill="#D50000" stroke="#FFF8DC" strokeWidth="0.8" />
+                            <circle cx="32" cy="35" r="2.5" fill="#00E676" stroke="#FFF8DC" strokeWidth="0.8" />
+                            <circle cx="41" cy="36" r="2" fill="#D50000" stroke="#FFF8DC" strokeWidth="0.8" />
                             <defs>
-                                <linearGradient id="crownGrad" x1="3" y1="4" x2="21" y2="20" gradientUnits="userSpaceOnUse">
-                                    <stop stopColor="#FFF9D2" />
-                                    <stop offset="0.35" stopColor="#FFD700" />
-                                    <stop offset="0.75" stopColor="#F59E0B" />
-                                    <stop offset="1" stopColor="#D97706" />
+                                <linearGradient id="crownGold" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stopColor="#FFFDF2" />
+                                    <stop offset="30%" stopColor="#FFE066" />
+                                    <stop offset="65%" stopColor="#FFB300" />
+                                    <stop offset="100%" stopColor="#C67C00" />
                                 </linearGradient>
+                                <linearGradient id="goldRim" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stopColor="#FFF8DC" />
+                                    <stop offset="50%" stopColor="#FFD700" />
+                                    <stop offset="100%" stopColor="#996515" />
+                                </linearGradient>
+                                <radialGradient id="rubyCore" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stopColor="#800016" stopOpacity="0.85" />
+                                    <stop offset="100%" stopColor="#2B0006" stopOpacity="0.95" />
+                                </radialGradient>
                             </defs>
                         </svg>
                     </div>
-                    <div className='d-flex flex-column justify-content-center text-start'>
-                        <span className='brand-sub-heading'>DNTN TIỆM VÀNG</span>
-                        <h1 className='brand-main-title m-0'>PHƯƠNG THẢO</h1>
-                        <div className='tccs-badge-pill mt-1'>
-                            <span className='tccs-dot-indicator'></span>
-                            <span className='tccs-text-code'>TCCS 02:2026/PTAG</span>
+
+                    <div className='d-flex flex-column justify-content-center text-start brand-text-stack'>
+                        <div className='d-flex align-items-center gap-3 flex-wrap'>
+                            <span className='brand-sub-heading'>
+                                <span className='gold-star-ornament'>✦</span> DNTN TIỆM VÀNG <span className='gold-star-ornament'>✦</span>
+                            </span>
+                            <div className='tccs-badge-pill'>
+                                <span className='tccs-dot-indicator'></span>
+                                <span className='tccs-text-code'>TCCS 01:2026/PT</span>
+                            </div>
                         </div>
+                        <h1 className='brand-main-title m-0' data-text="PHƯƠNG THẢO">PHƯƠNG THẢO</h1>
                     </div>
                 </div>
 
-                {/* Right Status Center: Weather & Live Tabular Clock */}
-                <div className='d-flex align-items-center gap-3'>
+                {/* Right: Royal Status Center (Weather & Live Tabular Clock) */}
+                <div className='d-flex align-items-stretch gap-2 status-console-group'>
                     <WeatherWidget onWeatherUpdate={handleWeatherUpdate} />
                     <DataCurrentTime />
                 </div>
             </header>
 
-            <div className='flex-grow-1' style={{ overflow: 'hidden', zIndex: 1 }}>
+            {/* Main Gold Price Board */}
+            <main className='flex-grow-1 d-flex flex-column' style={{ overflow: 'hidden', zIndex: 1, minHeight: 0 }}>
                 <TableShowData />
-            </div>
+            </main>
         </div>
     )
 }
