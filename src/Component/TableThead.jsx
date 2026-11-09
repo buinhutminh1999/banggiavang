@@ -12,18 +12,20 @@ function TableThead() {
             </th>
             <th className='th-price-col th-sell' style={{ width: '34%' }}>
                 <div className='th-header-inner th-inner-sell'>
-                    <div className='d-flex align-items-center justify-content-center gap-2'>
+                    <div className='d-flex align-items-center gap-2'>
+                        <span className='th-direction-pill pill-sell'>▲</span>
                         <span className='th-badge-sell'>GIÁ BÁN RA</span>
-                        <span className='th-unit-tag tag-sell-unit'>VNĐ/CHỈ</span>
                     </div>
+                    <span className='th-unit-tag tag-sell-unit'>ĐVT: VNĐ / CHỈ</span>
                 </div>
             </th>
             <th className='th-price-col th-buy' style={{ width: '34%' }}>
                 <div className='th-header-inner th-inner-buy'>
-                    <div className='d-flex align-items-center justify-content-center gap-2'>
+                    <div className='d-flex align-items-center gap-2'>
+                        <span className='th-direction-pill pill-buy'>▼</span>
                         <span className='th-badge-buy'>GIÁ MUA VÀO</span>
-                        <span className='th-unit-tag tag-buy-unit'>VNĐ/CHỈ</span>
                     </div>
+                    <span className='th-unit-tag tag-buy-unit'>ĐVT: VNĐ / CHỈ</span>
                 </div>
             </th>
         </tr>
